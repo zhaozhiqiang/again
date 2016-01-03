@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Width="1920" Height="1080">
     <Grid>
-        <MediaElement x:Name="player" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Width="1280" Height="800"/>
+        <MediaElement x:Name="player" HorizontalAlignment="Left" Margin="320,0,0,0" VerticalAlignment="Top" Width="1280" Height="800" Visibility="Hidden" MediaOpened="player_MediaOpened" LoadedBehavior="Manual" UnloadedBehavior="Manual"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="320,880,0,0" VerticalAlignment="Top" Width="1280" PreviewMouseLeftButtonUp="slider_PreviewMouseLeftButtonUp" IsMoveToPointEnabled="True" PreviewMouseLeftButtonDown="slider_PreviewMouseLeftButtonDown"/>
     </Grid>
 </Window>
