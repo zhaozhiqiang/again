@@ -10,9 +10,11 @@ namespace again
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool MousePressed = false;
-
         private string MusicFileDir = "";
+
+        private int REFERSH_SLIDER_INTERVAL = 100;
+
+        private int RESET_PLAYER_MIN_INTERVAL = 200;
 
         DispatcherTimer Timer = new DispatcherTimer();
 
@@ -27,6 +29,7 @@ namespace again
         {
             if (setMusicSource())
             {
+                //LoadedBehavior must be "Manual" first.
                 player.Play();
                 timerStart();
             }
@@ -35,16 +38,13 @@ namespace again
         void timerStart()
         {
             Timer.Tick += new EventHandler(Timer_Tick);
-            Timer.Interval = TimeSpan.FromMilliseconds(1000);
+            Timer.Interval = TimeSpan.FromMilliseconds(REFERSH_SLIDER_INTERVAL);
             Timer.Start();
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            if (!MousePressed)
-            {
-                slider.Value = player.Position.TotalSeconds;
-            }
+            slider.Value = player.Position.TotalSeconds;
         }
 
         private void initSlider()
@@ -79,17 +79,12 @@ namespace again
             initSlider();
         }
 
-        private void slider_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            MousePressed = true;
-        }
-
-        private void slider_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            MousePressed = false;
-
-            player.Position = TimeSpan.FromSeconds(Math.Round(slider.Value));
-            player.Play();
+            if (Math.Abs(e.NewValue * 1000 - player.Position.TotalMilliseconds) > RESET_PLAYER_MIN_INTERVAL)
+            {
+                player.Position = TimeSpan.FromSeconds(Math.Round(slider.Value));
+            }
         }
     }
 }
