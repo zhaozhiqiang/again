@@ -22,7 +22,15 @@ namespace again
         {
             InitializeComponent();
 
+            initPlayList();
             play();
+        }
+
+        private void initPlayList()
+        {
+            string path = FileManager.getMusicFilePath(FileManager.CONFIG_PATH);
+
+            PlayList playList = new PlayList(path);
         }
 
         private void play()
