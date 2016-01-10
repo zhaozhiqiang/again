@@ -12,9 +12,9 @@ namespace again
     {
         private string MusicFileDir = "";
 
-        private int REFERSH_SLIDER_INTERVAL = 100;
+        private const int REFERSH_SLIDER_INTERVAL = 100;
 
-        private int RESET_PLAYER_MIN_INTERVAL = 200;
+        private const int RESET_PLAYER_MIN_INTERVAL = 200;
 
         DispatcherTimer Timer = new DispatcherTimer();
 
